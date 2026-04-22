@@ -6,37 +6,32 @@
 @if (Model is not null)
 {
     <div class="container">
-        <h1>Proyectores</h1>
-        <h3>Información de los proyectores registrados:</h3>
+        <h1 class="display-4 text-center">Proyectores</h1>
+        <h3 class="text-start mb-3">Información de los proyectores registrados:</h3>
         @if (Model.Any<Proyector>())
-        @* @if (Model.Count<Proyector>() > 0 )*@
         {
-            <table>
-                <thead>
-                    <tr>
-                        <th># proyector</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th># de serie</th>
-                        <th>Situacion</th>
-                        <th>Fecha de alta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (Proyector proyector in Model)
-                    {
-                        <tr>
-                            <td>@proyector.Id</td>
-                            <td>@proyector.Marca</td>
-                            <td>@proyector.Modelo</td>
-                            <td>@proyector.NumeroDeSerie</td>
-                            <td>@proyector.Situacion</td>
-                            <td>@proyector.FechaDeAlta.ToShortDateString()</td>
-                        </tr>
-                    }
+            <div class="row">
+                <div class="col"># proyector</div>
+                <div class="col">Marca</div>
+                <div class="col">Modelo</div>
+                <div class="col"># de serie</div>
+                <div class="col">Situacion</div>
+                <div class="col">Fecha de alta</div>
+            </div>
 
-                </tbody>
-            </table>
+            <div>
+                @foreach (Proyector proyector in Model)
+                {
+                    <div class="row">
+                        <div class="col">@proyector.Id</div>
+                        <div class="col">@proyector.Marca</div>
+                        <div class="col">@proyector.Modelo</div>
+                        <div class="col">@proyector.NumeroDeSerie</div>
+                        <div class="col">@proyector.Situacion</div>
+                        <div class="col">@proyector.FechaDeAlta.ToShortDateString()</div>
+                    </div>
+                }
+            </div>
         }
         else {
             <h4>Aún no hay proyectores registrados</h4>
