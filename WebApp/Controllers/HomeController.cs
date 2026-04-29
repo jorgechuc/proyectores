@@ -68,7 +68,7 @@ namespace WebApp.Controllers
             return proyectores;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Create()
         {
             return View();
         }
