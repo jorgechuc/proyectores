@@ -7,24 +7,29 @@
     <h1 class="display-5 mb-3">Nuevo proyector</h1>
     <div class="row">
         <form asp-controller="Home" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
                 <label class="form-label" asp-for="Id">Número de proyector:</label>
                 <input type="number" class="form-control" asp-for="Id" id="Id"/>
+                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label class="form-label" asp-for="Marca">Marca del proyector:</label>
                 <input type="text" class="form-control" asp-for="Marca" id="Marca"/>
+                <span asp-validation-for="Marca" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label class="form-label" asp-for="Modelo">Modelo:</label>
                 <input type="text" class="form-control" asp-for="Modelo" id="Modelo"/>
+                <span asp-validation-for="Modelo" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label class="form-label" asp-for="NumeroDeSerie">Número de serie:</label>
                 <input type="text" class="form-control" asp-for="NumeroDeSerie" id="NumeroDeSerie"/>
+                <span asp-validation-for="NumeroDeSerie" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
