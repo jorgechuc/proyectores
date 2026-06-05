@@ -1,0 +1,56 @@
+﻿@model Proyector;
+@{
+    ViewData["Title"] = "Eliminar proyector";
+}
+
+<div class="container">
+    <h3 class="display-6 mb-3">¿Desea eliminar este proyector?</h3>
+
+    <div class="bg-body-secondary p-3 mb-5 fs-5">
+        <h4 class="mb-3">Información del proyector # @Model.Id</h4>
+
+        <div class="row">
+            <div class="form-group col">
+                <label class="form-label">Marca:</label>
+                <label class="form-label">@Model.Marca</label>
+            </div>
+
+            <div class="form-group col">
+                <label class="form-label">Modelo:</label>
+                <label class="form-label">@Model.Modelo</label>
+            </div>
+
+            <div class="form-group col">
+                <label class="form-label">Número de serie:</label>
+                <label class="form-label">@Model.NumeroDeSerie</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col">
+                <label class="form-label">Fecha de alta:</label>
+                <label class="form-label">@Model.FechaDeAlta.ToShortDateString()</label>
+            </div>
+
+            <div class="form-group col">
+                <label class="form-label">Fecha de baja:</label>
+                <label class="form-label">@Model.FechaDeBaja?.ToShortDateString()</label>
+            </div>
+
+            <div class="form-group col mb-3">
+                <label class="form-label">Situación:</label>
+                <label class="form-label">@Model.Situacion</label>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" asp-controller="Home" asp-action="Delete">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary mx-2" asp-controller="Home" asp-action="Index">Cancelar</a>
+            <button type="submit" class="btn btn-danger mx-2" asp-route-id="@Model.Id">
+                Eliminar
+            </button>
+        </div>
+    </form>
+
+</div>

@@ -15,16 +15,19 @@
         </div>
         @if (Model.Any<Proyector>())
         {
-            <div class="row">
-                <div class="col"># proyector</div>
-                <div class="col">Marca</div>
-                <div class="col">Modelo</div>
-                <div class="col"># de serie</div>
-                <div class="col">Situacion</div>
-                <div class="col">Fecha de alta</div>
+            <div class="border-bottom p-1">
+                <div class="row fs-5">
+                    <div class="col"># proyector</div>
+                    <div class="col">Marca</div>
+                    <div class="col">Modelo</div>
+                    <div class="col"># de serie</div>
+                    <div class="col">Situacion</div>
+                    <div class="col">Fecha de alta</div>
+                    <div class="col-3">Acciones</div>
+                </div>
             </div>
 
-            <div>
+            <div class="p-1 fs-5">
                 @foreach (Proyector proyector in Model)
                 {
                     <div class="row">
@@ -34,6 +37,11 @@
                         <div class="col">@proyector.NumeroDeSerie</div>
                         <div class="col">@proyector.Situacion</div>
                         <div class="col">@proyector.FechaDeAlta.ToShortDateString()</div>
+                        <div class="col-3">
+                            <a asp-action="Details" asp-route-id="@proyector.Id">Detalles</a> |
+                            <a asp-action="Edit" asp-route-id="@proyector.Id">Modificar</a> |
+                            <a asp-action="Delete" asp-route-id="@proyector.Id">Eliminar</a>
+                        </div>
                     </div>
                 }
             </div>

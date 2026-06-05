@@ -42,6 +42,61 @@ namespace WebApp.Controllers
             }
         }
 
+        public IActionResult Details(int id)
+        {
+            var modelo = _service.GetProyectorById(id);
+            if (modelo != null)
+            {
+                return View(modelo);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var modelo = _service.GetProyectorById(id);
+            if (modelo != null)
+            {
+                return View(modelo);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Proyector proyector)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(proyector);
+            }
+            else
+            {
+                _service.Update(proyector);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var modelo = _service.GetProyectorById(id);
+            if (modelo != null)
+            {
+                return View(modelo);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var proyector = _service.GetProyectorById(id);
+            if (proyector != null)
+            {
+                _service.Delete(proyector);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

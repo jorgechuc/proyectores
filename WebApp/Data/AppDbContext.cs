@@ -6,6 +6,7 @@ namespace WebApp.Data
     public class AppDbContext : DbContext
     {
         public DbSet<Proyector> Proyectores { get; set; }
+        public DbSet<Departamento> Departamentos { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -15,7 +16,10 @@ namespace WebApp.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Proyector>().ToTable("Proyectores");
+            modelBuilder.Entity<Departamento>()
+                .ToTable("Departamentos");
+            modelBuilder.Entity<Proyector>()
+                .ToTable("Proyectores");
         }
 
     }

@@ -10,7 +10,9 @@ builder.Services.AddControllersWithViews();
 // Agregar el contexto de la base de datos como un servicio
 builder.Services.AddDbContext<AppDbContext>(
     options => 
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"))
+        options.UseSqlServer(builder
+        .Configuration
+        .GetConnectionString("Connection"))
     );
 
 builder.Services.AddTransient<IProyectoresService, ProyectoresService>();
