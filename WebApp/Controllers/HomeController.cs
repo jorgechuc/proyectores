@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WebApp.DTOs;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
@@ -8,43 +9,59 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private IProyectoresService _service;
+        private readonly IProyectoresService _proyectoresService;
+        private readonly IDepartamentosService _departamentosService;
 
-        public HomeController(IProyectoresService service)
+        public HomeController(IProyectoresService proyectoresService, 
+            IDepartamentosService departamentosService)
         {
-            _service = service;
+            _proyectoresService = proyectoresService;
+            _departamentosService = departamentosService;
         }
 
         public IActionResult Index()
         {
-            var modelo = _service.GetAll();
+            var modelo = _proyectoresService.GetAll();
             return View(modelo);
         }
 
         public IActionResult Create()
         {
             var modelo = new HomeCreateViewModel();
-            modelo.FechaDeAlta = DateTime.Now;
+            modelo.ProyectorInsertDto = new ProyectorInsertDto();
+            modelo.Departamentos = _departamentosService.Get();
             return View(modelo);
         }
 
         [HttpPost]
-        public IActionResult Create(Proyector proyector)
+        public IActionResult Create(ProyectorInsertDto proyectorInsertDto)
         {
             if (!ModelState.IsValid)
             {
-                return View(proyector);
+                var modelo = new HomeCreateViewModel();
+                modelo.ProyectorInsertDto = proyectorInsertDto;
+                modelo.Departamentos = _departamentosService.Get();
+                return View(modelo);
             }
             else
             {
-                _service.AddProyector(proyector);
+                var proyector = new Proyector()
+                {
+                    Marca = proyectorInsertDto.Marca,
+                    Modelo = proyectorInsertDto.Modelo,
+                    NumeroDeSerie = proyectorInsertDto.NumeroDeSerie,
+                    FechaDeAlta = proyectorInsertDto.FechaDeAlta,
+                    Situacion = proyectorInsertDto.Situacion,
+                    DepartamentoId = proyectorInsertDto.DepartamentoId
+                };
+                _proyectoresService.AddProyector(proyector);
                 return RedirectToAction(nameof(Index));
             }
         }
 
         public IActionResult Details(int id)
         {
-            var modelo = _service.GetProyectorById(id);
+            var modelo = _proyectoresService.GetProyectorById(id);
             if (modelo != null)
             {
                 return View(modelo);
@@ -54,7 +71,7 @@ namespace WebApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            var modelo = _service.GetProyectorById(id);
+            var modelo = _proyectoresService.GetProyectorById(id);
             if (modelo != null)
             {
                 return View(modelo);
@@ -71,14 +88,14 @@ namespace WebApp.Controllers
             }
             else
             {
-                _service.Update(proyector);
+                _proyectoresService.Update(proyector);
                 return RedirectToAction(nameof(Index));
             }
         }
 
         public IActionResult Delete(int id)
         {
-            var modelo = _service.GetProyectorById(id);
+            var modelo = _proyectoresService.GetProyectorById(id);
             if (modelo != null)
             {
                 return View(modelo);
@@ -89,10 +106,10 @@ namespace WebApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var proyector = _service.GetProyectorById(id);
+            var proyector = _proyectoresService.GetProyectorById(id);
             if (proyector != null)
             {
-                _service.Delete(proyector);
+                _proyectoresService.Delete(proyector);
             }
             return RedirectToAction(nameof(Index));
         }

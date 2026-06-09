@@ -23,6 +23,7 @@
                     <div class="col"># de serie</div>
                     <div class="col">Situacion</div>
                     <div class="col">Fecha de alta</div>
+                    <div class="col">Departamento</div>
                     <div class="col-3">Acciones</div>
                 </div>
             </div>
@@ -37,6 +38,7 @@
                         <div class="col">@proyector.NumeroDeSerie</div>
                         <div class="col">@proyector.Situacion</div>
                         <div class="col">@proyector.FechaDeAlta.ToShortDateString()</div>
+                        <div class="col">@proyector.Departamento.Titulo</div>
                         <div class="col-3">
                             <a asp-action="Details" asp-route-id="@proyector.Id">Detalles</a> |
                             <a asp-action="Edit" asp-route-id="@proyector.Id">Modificar</a> |

@@ -1,4 +1,5 @@
-﻿using WebApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApp.Data;
 using WebApp.Models;
 
 namespace WebApp.Services
@@ -42,7 +43,10 @@ namespace WebApp.Services
 
         public IEnumerable<Proyector> GetAll()
         {
-            return _contexto.Proyectores.ToList<Proyector>();
+            return _contexto
+                .Proyectores
+                .Include(p => p.Departamento)
+                .ToList<Proyector>();
         }
 
         public void Update(Proyector proyector)

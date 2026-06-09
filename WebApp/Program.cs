@@ -16,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(
     );
 
 builder.Services.AddTransient<IProyectoresService, ProyectoresService>();
+builder.Services.AddTransient<IDepartamentosService, DepartamentosService>();
 
 var app = builder.Build();
 
