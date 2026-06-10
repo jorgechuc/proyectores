@@ -1,4 +1,5 @@
-﻿@model Proyector;
+﻿@using WebApp.DTOs
+@model ProyectorDetailsDto;
 @{
     ViewData["Title"] = "Detalles del proyector";
 }
@@ -6,36 +7,48 @@
 <div class="container">
     <h2 class="display-6 mb-3">Información del proyector # @Model.Id</h2>
 
-    <div class="bg-light p-3 mb-5 fs-5">
-        <div class="form-group">
-            <label class="form-label">Marca:</label>
-            <label class="form-label">@Model.Marca</label>
+    <div class="bg-dark-subtle p-3 mb-5 fs-5">
+        <div class="row mb-3">
+            <div class="col d-flex gap-2 form-group">
+                <label class="form-label">Marca:</label>
+                <label class="form-label flex-fill px-2 bg-white">@Model.Marca</label>
+            </div>
+
+            <div class="col d-flex gap-2 form-group">
+                <label class="form-label">Modelo:</label>
+                <label class="form-label flex-fill px-2 bg-white">@Model.Modelo</label>
+            </div>
+
+            <div class="col d-flex gap-2 form-group">
+                <label class="form-label">Número de serie:</label>
+                <label class="form-label flex-fill p-2 bg-white">@Model.NumeroDeSerie</label>
+            </div>
+
         </div>
 
-        <div class="form-group">
-            <label class="form-label">Modelo:</label>
-            <label class="form-label">@Model.Modelo</label>
+        <div class="row mb-3">
+            <div class="col d-flex gap-2 form-group">
+                <label class="form-label">Fecha de alta:</label>
+                <label class="form-label flex-fill py-0 px-2 bg-white">@Model.FechaDeAlta.ToShortDateString()</label>
+            </div>
+
+            <div class="col d-flex gap-2 form-group">
+                <label class="form-label">Fecha de baja:</label>
+                <label class="form-label flex-fill px-2 bg-white">@Model.FechaDeBaja?.ToShortDateString()</label>
+            </div>
+
+            <div class="col d-flex gap-2 form-group mb-3">
+                <label class="form-label">Situación:</label>
+                <label class="form-label flex-fill px-2 bg-white">@Model.Situacion</label>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label class="form-label">Número de serie:</label>
-            <label class="form-label">@Model.NumeroDeSerie</label>
+        <div class="row mb-3">
+            <div class="col d-flex gap-2 form-group">
+                <label class="form-label">Departamento:</label>
+                <label class="form-label px-2 bg-white">@Model.Departamento.Titulo</label>            </div>
         </div>
 
-        <div class="form-group">
-            <label class="form-label">Fecha de alta:</label>
-            <label class="form-label">@Model.FechaDeAlta.ToLongDateString()</label>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Fecha de baja:</label>
-            <label class="form-label">@Model.FechaDeBaja?.ToLongDateString()</label>
-        </div>
-
-        <div class ="form-group mb-3">
-            <label class="form-label">Situación:</label>
-            <label class="form-label">@Model.Situacion</label>
-        </div>
     </div>
     <div class="align-content-end">
         <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Cerrar</a>

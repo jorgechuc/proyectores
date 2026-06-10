@@ -1,52 +1,69 @@
 ﻿@using WebApp.ViewModels;
-@model Proyector;
+@model HomeEditViewModel;
 @{
     ViewData["Title"] = "Modificar proyector";
 }
 
 <div class="container">
-    <h1 class="display-6 mb-3">Información del proyector número: @Model.Id</h1>
+    <h1 class="display-6 mb-3">Información del proyector número: @Model.ProyectorUpdateDto.Id</h1>
     <div class="row bg-light mb-3">
-        <form asp-controller="Home" asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post"
+              asp-controller="Home"
+              asp-action="Edit">
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <input asp-for="ProyectorUpdateDto.Id" type="hidden" />
 
             <div class="row mt-3">
                 <div class="col form-group mb-3">
-                    <label class="form-label" asp-for="Marca">Marca del proyector:</label>
-                    <input type="text" class="form-control" asp-for="Marca" id="Marca" />
-                    <span asp-validation-for="Marca" class="text-danger"></span>
+                    <label class="form-label" asp-for="ProyectorUpdateDto.Marca">Marca del proyector:</label>
+                    <input type="text" class="form-control" asp-for="ProyectorUpdateDto.Marca"/>
+                    <span asp-validation-for="ProyectorUpdateDto.Marca" class="text-danger"></span>
                 </div>
 
                 <div class="col form-group mb-3">
-                    <label class="form-label" asp-for="Modelo">Modelo:</label>
-                    <input type="text" class="form-control" asp-for="Modelo" id="Modelo" />
-                    <span asp-validation-for="Modelo" class="text-danger"></span>
+                    <label class="form-label" asp-for="ProyectorUpdateDto.Modelo">Modelo:</label>
+                    <input type="text" class="form-control" asp-for="ProyectorUpdateDto.Modelo" />
+                    <span asp-validation-for="ProyectorUpdateDto.Modelo" class="text-danger"></span>
                 </div>
 
                 <div class="col form-group mb-3">
-                    <label class="form-label" asp-for="NumeroDeSerie">Número de serie:</label>
-                    <input type="text" class="form-control" asp-for="NumeroDeSerie" id="NumeroDeSerie" />
-                    <span asp-validation-for="NumeroDeSerie" class="text-danger"></span>
+                    <label class="form-label" asp-for="ProyectorUpdateDto.NumeroDeSerie">Número de serie:</label>
+                    <input type="text" class="form-control" asp-for="ProyectorUpdateDto.NumeroDeSerie"/>
+                    <span asp-validation-for="ProyectorUpdateDto.NumeroDeSerie" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col form-group mb-3">
-                    <label class="form-label" asp-for="FechaDeAlta">Fecha de alta:</label>
-                    <input type="date" class="form-control" asp-for="FechaDeAlta" id="FechaDeAlta" />
+                    <label class="form-label" asp-for="ProyectorUpdateDto.FechaDeAlta">Fecha de alta:</label>
+                    <input type="date" class="form-control" asp-for="ProyectorUpdateDto.FechaDeAlta" />
                 </div>
 
                 <div class="col form-group mb-3">
-                    <label class="form-label" asp-for="FechaDeBaja">Fecha de baja:</label>
-                    <input type="date" class="form-control" asp-for="FechaDeBaja" id="FechaDeBaja" />
+                    <label class="form-label" asp-for="ProyectorUpdateDto.FechaDeBaja">Fecha de baja:</label>
+                    <input type="date" class="form-control" asp-for="ProyectorUpdateDto.FechaDeBaja"/>
                 </div>
 
                 <div class="col form-group mb-3">
-                    <label class="form-label" asp-for="Situacion">Situación del proyector:</label>
-                    <select class="form-select" asp-for="Situacion" id="Situacion">
+                    <label class="form-label" asp-for="ProyectorUpdateDto.Situacion">Situación del proyector:</label>
+                    <select class="form-select" asp-for="ProyectorUpdateDto.Situacion" id="Situacion">
                         <option value="1">Bueno</option>
                         <option value="2">Regular</option>
                         <option value="3">Malo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group mb-3">
+                    <label class="form-label" asp-for="ProyectorUpdateDto.DepartamentoId">Departamento:</label>
+                    <select class="form-select" asp-for="ProyectorUpdateDto.DepartamentoId" >
+                        @foreach (var departamento in Model.Departamentos)
+                        {
+                            <option value="@departamento.Id">@departamento.Titulo</option>
+                        }
                     </select>
                 </div>
             </div>

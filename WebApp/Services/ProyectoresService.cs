@@ -38,6 +38,7 @@ namespace WebApp.Services
         {
             return _contexto
                 .Proyectores
+                .Include(p => p.Departamento)
                 .FirstOrDefault<Proyector>(p => p.Id == id);
         }
 

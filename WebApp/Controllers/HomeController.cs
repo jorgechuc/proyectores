@@ -61,9 +61,19 @@ namespace WebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            var modelo = _proyectoresService.GetProyectorById(id);
-            if (modelo != null)
+            var proyector = _proyectoresService.GetProyectorById(id);
+            if (proyector != null)
             {
+                var modelo = new ProyectorDetailsDto()
+                {
+                    Id = proyector.Id,
+                    Marca = proyector.Marca,
+                    Modelo = proyector.Modelo,
+                    NumeroDeSerie = proyector.NumeroDeSerie,
+                    FechaDeAlta = proyector.FechaDeAlta,
+                    FechaDeBaja = proyector.FechaDeBaja,
+                    Departamento = proyector.Departamento
+                };
                 return View(modelo);
             }
             return RedirectToAction(nameof(Index));
@@ -71,23 +81,56 @@ namespace WebApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            var modelo = _proyectoresService.GetProyectorById(id);
-            if (modelo != null)
+            var proyector = _proyectoresService.GetProyectorById(id);
+            if (proyector != null)
             {
+                var proyectorUpdateDto = new ProyectorUpdateDto()
+                {
+                    Id = proyector.Id,
+                    Marca = proyector.Marca,
+                    Modelo = proyector.Modelo,
+                    NumeroDeSerie = proyector.NumeroDeSerie,
+                    FechaDeAlta = proyector.FechaDeAlta,
+                    FechaDeBaja = proyector.FechaDeBaja,
+                    Situacion = proyector.Situacion,
+                    DepartamentoId = proyector.DepartamentoId,
+                    //Departamento = proyector.Departamento,
+                };
+                var modelo = new HomeEditViewModel()
+                {
+                    ProyectorUpdateDto = proyectorUpdateDto,
+                    Departamentos = _departamentosService.Get()
+                };
                 return View(modelo);
             }
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public IActionResult Edit(Proyector proyector)
+        public IActionResult Edit(ProyectorUpdateDto proyectorUpdateDto)
         {
             if (!ModelState.IsValid)
             {
-                return View(proyector);
+                var modelo = new HomeEditViewModel()
+                {
+                    ProyectorUpdateDto = proyectorUpdateDto,
+                    Departamentos = _departamentosService.Get()
+                };
+                return View(modelo);
             }
             else
             {
+                var proyector = new Proyector()
+                {
+                    Id = proyectorUpdateDto.Id,
+                    Marca = proyectorUpdateDto.Marca,
+                    Modelo = proyectorUpdateDto.Modelo,
+                    NumeroDeSerie = proyectorUpdateDto.NumeroDeSerie,
+                    FechaDeAlta = proyectorUpdateDto.FechaDeAlta,
+                    FechaDeBaja = proyectorUpdateDto.FechaDeBaja,
+                    Situacion = proyectorUpdateDto.Situacion,
+                    DepartamentoId = proyectorUpdateDto.DepartamentoId,
+                };
                 _proyectoresService.Update(proyector);
                 return RedirectToAction(nameof(Index));
             }
